@@ -28,5 +28,7 @@ public class FeedController {
         return ResponseEntity.ok(savedFeed);
     }
 
+    
+
     public record UrlRequest(String url) {}
 }

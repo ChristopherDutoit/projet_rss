@@ -17,7 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.projet_rss.domain.Feed;
 import com.projet_rss.service.FeedService;
-import com.projet_rss.web.FeedController;
 
 @WebMvcTest(FeedController.class)
 class FeedControllerTest {

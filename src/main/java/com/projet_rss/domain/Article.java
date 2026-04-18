@@ -2,6 +2,8 @@ package com.projet_rss.domain;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -17,6 +19,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -56,6 +60,15 @@ public class Article {
 
     @Column(name = "is_read", nullable = false)
     private boolean isRead = false;
+
+    @ManyToMany
+    @JoinTable(
+    name = "article_collection",
+    joinColumns = @JoinColumn(name = "article_id"),
+    inverseJoinColumns = @JoinColumn(name = "collection_id")
+    )
+    
+    private Set<Collection> collections = new HashSet<>();
 
  
 
@@ -118,5 +131,8 @@ public class Article {
     public void setRead(boolean read) {
         this.isRead = read;
     }   
+
+    public Set<Collection> getCollections() { return collections; }
+    public void setCollections(Set<Collection> collections) { this.collections = collections; }
 
 }
