@@ -1,10 +1,17 @@
 package com.projet_rss.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +22,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="articles")
+@EntityListeners(AuditingEntityListener.class)
 public class Article {
     
     @Id
@@ -38,10 +46,15 @@ public class Article {
 
     private LocalDateTime pubDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feed_id")
+   @ManyToOne(fetch = FetchType.LAZY) 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "articles"})
     private Feed feed;
 
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt = Instant.now(); 
+
+ 
 
     public Article() {}
 
@@ -91,6 +104,9 @@ public class Article {
         return feed;
     }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
 
 }
