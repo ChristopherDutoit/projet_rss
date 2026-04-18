@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,7 +27,12 @@ public class ArticleResource {
     }
 
     @GetMapping("/articles")
-    public List<Article> getAllArticles() {
+    public List<Article> getAllArticles(@RequestParam(required = false) UUID feedId) {
+       
+        if (feedId != null) {
+        return articleRepository.findAllByFeedIdOrderByCreatedAtDesc(feedId);
+        }
+
         return articleRepository.findAllByOrderByCreatedAtDesc();
     }
 

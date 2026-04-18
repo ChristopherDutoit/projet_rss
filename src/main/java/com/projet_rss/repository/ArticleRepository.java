@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, UUID> {
+    List<Article> findAllByFeedIdOrderByCreatedAtDesc(UUID feedId);
     List<Article> findAllByOrderByCreatedAtDesc();
     boolean existsByLink(String link);
 }
