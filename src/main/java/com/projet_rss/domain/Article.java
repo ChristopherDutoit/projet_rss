@@ -47,12 +47,15 @@ public class Article {
     private LocalDateTime pubDate;
 
    @ManyToOne(fetch = FetchType.LAZY) 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "articles"})
+   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "articles"})
     private Feed feed;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now(); 
+
+    @Column(name = "is_read", nullable = false)
+    private boolean isRead = false;
 
  
 
@@ -108,5 +111,12 @@ public class Article {
         return createdAt;
     }
 
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        this.isRead = read;
+    }   
 
 }
