@@ -1,4 +1,4 @@
-package com.projet_rss.service.repository;
+package com.projet_rss.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
